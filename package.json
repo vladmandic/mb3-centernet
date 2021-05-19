@@ -1,0 +1,33 @@
+{
+  "name": "nanodet",
+  "version": "0.0.1",
+  "description": "MobileNet-v3 with CenterNet Object Detection for TFJS and NodeJS",
+  "main": "mb3-centernet.js",
+  "scripts": {
+    "start": "node mb3-centernet.js"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vladmandic/mb3-centernet.git"
+  },
+  "author": "Vladimir Mandic <mandic00@live.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/vladmandic/mb3-centernet/issues"
+  },
+  "homepage": "https://github.com/vladmandic/mb3-centernet#readme",
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^3.3.0",
+    "@vladmandic/pilogger": "^0.2.15",
+    "canvas": "^2.7.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.22.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0"
+  }
+}

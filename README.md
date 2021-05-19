@@ -24,18 +24,24 @@ tensorflowjs_converter \
 ```
 
 ```js
-2021-05-18 17:54:29 DATA:  created on: 2021-05-18T21:49:00.080Z
-2021-05-18 17:54:29 INFO:  graph model: /home/vlado/dev/mb3-centernet/graph-f16/model.json
-2021-05-18 17:54:29 INFO:  size: { unreliable: true, numTensors: 267, numDataBuffers: 267, numBytes: 8060260 }
-2021-05-18 17:54:29 INFO:  model inputs based on executor
-2021-05-18 17:54:29 INFO:  model outputs based on executor
-2021-05-18 17:54:29 DATA:  inputs: [ { name: 'tower_0/images', dtype: 'float32', shape: [ 1, 512, 512, 3 }
-2021-05-18 17:54:29 DATA:  outputs: [
-  { id: 0, name: 'tower_0/wh', dtype: 'DT_FLOAT', shape: undefined },
-  { id: 1, name: 'tower_0/keypoints', dtype: 'DT_FLOAT', shape: undefined },
-  { id: 2, name: 'tower_0/detections', dtype: 'DT_FLOAT', shape: undefined },
+2021-05-19 07:12:34 INFO:  nanodet version 0.0.1
+2021-05-19 07:12:34 INFO:  User: vlado Platform: linux Arch: x64 Node: v16.0.0
+2021-05-19 07:12:34 DATA:  created on: 2021-05-18T21:49:02.930Z
+2021-05-19 07:12:34 INFO:  graph model: /home/vlado/dev/mb3-centernet/model-f16/mb3-centernet.json
+2021-05-19 07:12:34 INFO:  size: { unreliable: true, numTensors: 267, numDataBuffers: 267, numBytes: 8060260 }
+2021-05-19 07:12:34 INFO:  model inputs based on signature
+2021-05-19 07:12:34 INFO:  model outputs based on signature
+2021-05-19 07:12:34 DATA:  inputs: [ { name: 'tower_0/images', dtype: 'DT_FLOAT', shape: [ 1, 512, 512, 3, [length]: 4 ] }, [length]: 1 ]
+2021-05-19 07:12:34 DATA:  outputs: [
+  { id: 0, name: 'tower_0/wh', dytpe: 'DT_FLOAT', shape: [ 1, 128, 128, 4, [length]: 4 ] },
+  { id: 1, name: 'tower_0/keypoints', dytpe: 'DT_FLOAT', shape: [ 1, 128, 128, 80, [length]: 4 ] },
+  { id: 2, name: 'tower_0/detections', dytpe: 'DT_FLOAT', shape: [ 1, 100, 6, [length]: 3 ] },
+  [length]: 3
 ]
 ```
+
+Where `tower_0/detections` is array of COCO classes * [ x1, y1, x2, y2, score, class ]  
+`tower_0/detections` is built in-model from `tower_0/wh` which contains strided heatmap - since it's already processed into detections, we don't need heatmap post-processing  
 
 <br><hr><br>
 

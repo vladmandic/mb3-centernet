@@ -8,7 +8,7 @@ const { labels } = require('./coco-labels'); // note that number of labels *must
 
 const modelOptions = {
   modelPath: 'file://model-f16/mb3-centernet.json',
-  outputTensors: ['tower_0/detections'], // ['tower_0/detections', 'tower_0/wh', 'tower_0/keypoints']
+  outputTensors: ['tower_0/detections'], // ['tower_0/detections', 'tower_0/wh', 'tower_0/keypoints'],
   minScore: 0.10, // low confidence, but still remove irrelevant
   iouThreshold: 0.40, // percentage when removing overlapped boxes
   maxResults: 20, // high number of results, but likely never reached
@@ -47,7 +47,7 @@ async function saveImage(img, res) {
   const out = fs.createWriteStream(outImage);
   out.on('finish', () => log.state('Created output image:', outImage));
   out.on('error', (err) => log.error('Error creating image:', outImage, err));
-  const stream = c.createJPEGStream({ quality: 0.6, progressive: true, chromaSubsampling: true });
+  const stream = c.createJPEGStream({ quality: 0.5, progressive: true, chromaSubsampling: true });
   stream.pipe(out);
 }
 
@@ -135,6 +135,7 @@ async function main() {
   // run actual prediction
   const t0 = process.hrtime.bigint();
   const res = model.execute(img.tensor, modelOptions.outputTensors);
+  console.log(res);
   const t1 = process.hrtime.bigint();
   log.info('Inference time:', Math.round(parseInt((t1 - t0).toString()) / 1000 / 1000), 'ms');
 

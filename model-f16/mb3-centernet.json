@@ -10,9 +10,9 @@
     },
     "outputs":
     {
-      "tower_0/wh": {"name":"tower_0/wh","dtype":"DT_FLOAT","tensorShape":{"dim":[{"size":"1"},{"size":"512"},{"size":"512"},{"size":"3"}]}},
-      "tower_0/keypoints": {"name":"tower_0/keypoints","dtype":"DT_FLOAT","tensorShape":{"dim":[{"size":"1"},{"size":"128"},{"size":"128"},{"size":"4"},{"size":"4"}]}},
-      "tower_0/detections": {"name":"tower_0/detections","dtype":"DT_FLOAT","tensorShape":{"dim":[{"size":"1"},{"size":"128"},{"size":"128"},{"size":"4"},{"size":"80"}]}}
+      "tower_0/wh": {"name":"tower_0/wh","dtype":"DT_FLOAT","tensorShape":{"dim":[{"size":"1"},{"size":"128"},{"size":"128"},{"size":"4"}]}},
+      "tower_0/keypoints": {"name":"tower_0/keypoints","dtype":"DT_FLOAT","tensorShape":{"dim":[{"size":"1"},{"size":"128"},{"size":"128"},{"size":"80"}]}},
+      "tower_0/detections": {"name":"tower_0/detections","dtype":"DT_FLOAT","tensorShape":{"dim":[{"size":"1"},{"size":"100"},{"size":"6"}]}}
     }
   },
   "modelTopology":

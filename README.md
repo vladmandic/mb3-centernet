@@ -14,6 +14,8 @@ Function `processResults()` takes output of `model.execute` and returns array of
 - box: detection box [x1, y1, x2, y2] normalized to input image dimensions
 - boxRaw: detection box [x1, y1, x2, y2] normalized to 0..1
 
+<br>
+
 ## Example
 
 ![Example Image](outputs/cars.jpg)

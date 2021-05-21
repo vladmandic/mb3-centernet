@@ -5,6 +5,15 @@ Models descriptors and signature have been additionally parsed for readability
 
 Actual model parsing implementation in `mb3-centernet.js` does not follow original Pytyhon implementation and is fully custom and optimized for JavaScript execution
 
+Function `processResults()` takes output of `model.execute` and returns array of objects:
+
+- id: internal number of detection box, used only for debugging
+- score: value 0..1
+- class: coco class number
+- label: coco label as string
+- box: detection box [x1, y1, x2, y2] normalized to input image dimensions
+- boxRaw: detection box [x1, y1, x2, y2] normalized to 0..1
+
 ## Example
 
 ![Example Image](outputs/cars.jpg)

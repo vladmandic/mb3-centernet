@@ -68,27 +68,27 @@ async function loadImage(fileName, inputSize) {
 
 // process model results
 async function processResults(res, inputSize, outputShape) {
-  const detections = res.arraySync();
-  const squeezeT = tf.squeeze(res);
+  const detections = res.arraySync(); // raw data that contains boxes, scores and classes, faster to do single read than read each separately later
+  const squeezeT = tf.squeeze(res); // remove extra dim
   res.dispose();
-  const arr = tf.split(squeezeT, 6, 1); // x1, y1, x2, y2, score, class
+  const arr = tf.split(squeezeT, 6, 1); // split x1, y1, x2, y2, score, class into individual tensors
   squeezeT.dispose();
-  const stackT = tf.stack([arr[1], arr[0], arr[3], arr[2]], 1); // tf.nms expects y, x
-  const boxesT = stackT.squeeze();
-  const scoresT = arr[4].squeeze();
-  const classesT = arr[5].squeeze();
-  arr.forEach((t) => t.dispose());
+  const stackT = tf.stack([arr[1], arr[0], arr[3], arr[2]], 1); // tf.nms expects y, x so stack it back together in expected order
+  const boxesT = stackT.squeeze(); // remove extra dim
+  const scoresT = arr[4].squeeze(); // get scores in a separate tensor as required by tf.nms
+  // const classesT = arr[5].squeeze(); // get classes in a separate tensor, but since we already have 'detections' data, we can just read it from there later
+  arr.forEach((t) => t.dispose()); // dispose all results
   // @ts-ignore boxesT type is not correctly inferred
   const nmsT = await tf.image.nonMaxSuppressionAsync(boxesT, scoresT, modelOptions.maxResults, modelOptions.iouThreshold, modelOptions.minScore);
   boxesT.dispose();
   scoresT.dispose();
-  classesT.dispose();
+  // classesT.dispose();
   const nms = nmsT.dataSync();
   nmsT.dispose();
   const results = [];
   for (const id of nms) {
-    const score = detections[0][id][4];
-    const classVal = detections[0][id][5];
+    const score = detections[0][id][4]; // we could use data from scoresT, but that's one more read op
+    const classVal = detections[0][id][5]; // we could use data from classesT, but that's one more read op
     const label = labels[classVal].label;
     const boxRaw = [
       detections[0][id][0] / inputSize,
@@ -102,6 +102,15 @@ async function processResults(res, inputSize, outputShape) {
       Math.trunc(boxRaw[2] * outputShape[0]),
       Math.trunc(boxRaw[3] * outputShape[1]),
     ];
+    /*
+    results are:
+     - id: internal number of detection box, not really useful except for debugging
+     - score: value 0..1
+     - class: coco class number
+     - label: coco label as string
+     - box: detection box [x1, y1, x2, y2] normalized to input image dimensions
+     - boxRaw: detection box [x1, y1, x2, y2] normalized to 0..1
+    */
     results.push({ id, score, class: classVal, label, box, boxRaw });
   }
   return results;

@@ -90,9 +90,13 @@ async function processResults(res, inputSize, outputShape) {
     const score = detections[0][id][4]; // we could use data from scoresT, but that's one more read op
     const classVal = detections[0][id][5]; // we could use data from classesT, but that's one more read op
     const label = labels[classVal].label;
-    const boxRaw = [
+    const [x, y] = [
       detections[0][id][0] / inputSize,
       detections[0][id][1] / inputSize,
+    ];
+    const boxRaw = [
+      x,
+      y,
       detections[0][id][2] / inputSize,
       detections[0][id][3] / inputSize,
     ];
@@ -144,7 +148,6 @@ async function main() {
   // run actual prediction
   const t0 = process.hrtime.bigint();
   const res = model.execute(img.tensor, modelOptions.outputTensors);
-  console.log(res);
   const t1 = process.hrtime.bigint();
   log.info('Inference time:', Math.round(parseInt((t1 - t0).toString()) / 1000 / 1000), 'ms');
 

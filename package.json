@@ -1,5 +1,5 @@
 {
-  "name": "nanodet",
+  "name": "mb3-centernet",
   "version": "0.0.1",
   "description": "MobileNet-v3 with CenterNet Object Detection for TFJS and NodeJS",
   "main": "mb3-centernet.js",
@@ -21,6 +21,7 @@
   "homepage": "https://github.com/vladmandic/mb3-centernet#readme",
   "dependencies": {
     "@tensorflow/tfjs-node": "^3.7.0",
+    "@tensorflow/tfjs-node-gpu": "^3.8.0",
     "@vladmandic/pilogger": "^0.2.17",
     "canvas": "^2.8.0"
   },

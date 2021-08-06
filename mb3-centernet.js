@@ -157,7 +157,7 @@ async function main() {
   log.info('Processing time:', Math.round(parseInt((t2 - t1).toString()) / 1000 / 1000), 'ms');
 
   // print results
-  log.data('Results:', results);
+  // log.data('Results:', results);
 
   // save processed image
   await saveImage(img, results);

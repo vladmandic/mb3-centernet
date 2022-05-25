@@ -1,23 +1,20 @@
 {
   "globals": {},
   "env": {
-      "browser": true,
+      "browser": false,
       "commonjs": true,
       "es6": true,
       "node": true,
-      "jquery": true,
+      "jquery": false,
       "es2020": true
   },
   "parserOptions": { "ecmaVersion": 2020 },
   "plugins": [ ],
   "extends": [
     "eslint:recommended",
-    "plugin:import/errors",
-    "plugin:import/warnings",
-    "plugin:node/recommended",
     "airbnb-base"
   ],
-  "ignorePatterns": [ "dist", "assets", "media", "models", "node_modules" ],
+  "ignorePatterns": [ "dist" ],
   "rules": {
     "max-len": [1, 275, 3],
     "radix": "off",
